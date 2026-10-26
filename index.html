@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CandyKane | Pastelería Artesanal</title>
+<meta name="description" content="CandyKane Pastelería Artesanal: tortas, cupcakes, macarons y postres hechos a mano con ingredientes frescos. Pide por encargo." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#FFF9F2;
+    --blush:#F6E3DC;
+    --berry:#8C2F4A;
+    --berry-dark:#66203A;
+    --caramel:#C98A4B;
+    --choco:#3B241C;
+    --muted:#7A6259;
+    --white:#ffffff;
+    --radius:20px;
+    --shadow:0 18px 40px -18px rgba(59,36,28,.35);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Nunito Sans',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--choco);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.brand{font-family:'Fraunces',Georgia,serif;line-height:1.15;font-weight:600}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{width:min(1160px,92%);margin-inline:auto}
+  .btn{
+    display:inline-block;padding:.9rem 1.9rem;border-radius:999px;
+    background:var(--berry);color:#fff;font-weight:700;letter-spacing:.02em;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    box-shadow:0 10px 24px -12px rgba(140,47,74,.9);
+  }
+  .btn:hover{transform:translateY(-3px);background:var(--berry-dark)}
+  .btn-ghost{
+    background:transparent;color:var(--berry);border:2px solid var(--berry);box-shadow:none;
+  }
+  .btn-ghost:hover{background:var(--berry);color:#fff}
+  .eyebrow{
+    font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--caramel);font-weight:700;
+  }
+  section{padding:96px 0}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,249,242,.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(201,138,75,.22);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:20px}
+  .brand{font-size:1.45rem;color:var(--berry);display:flex;align-items:center;gap:10px}
+  .brand span{font-size:1.5rem}
+  .nav ul{display:flex;gap:30px;list-style:none}
+  .nav ul a{font-weight:600;font-size:.95rem;color:var(--muted);transition:color .2s}
+  .nav ul a:hover{color:var(--berry)}
+  .nav .btn{padding:.65rem 1.4rem;font-size:.9rem}
+  .burger{display:none;background:none;border:none;font-size:1.6rem;color:var(--berry);cursor:pointer}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:80px 0 96px;
+    background:
+      radial-gradient(900px 480px at 88% 8%, var(--blush) 0%, transparent 62%),
+      radial-gradient(700px 420px at 4% 96%, #FCEBD8 0%, transparent 60%);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(2.4rem,5.2vw,4rem);margin:18px 0 20px;color:var(--choco)}
+  .hero h1 em{font-style:italic;color:var(--berry)}
+  .hero p.lead{font-size:1.1rem;color:var(--muted);max-width:46ch}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin:30px 0 34px}
+  .hero-stats{display:flex;gap:38px;flex-wrap:wrap;border-top:1px solid rgba(201,138,75,.3);padding-top:24px}
+  .hero-stats strong{display:block;font-family:'Fraunces',serif;font-size:1.7rem;color:var(--berry)}
+  .hero-stats span{font-size:.85rem;color:var(--muted)}
+  .hero-media{position:relative}
+  .hero-media img.main{
+    border-radius:26px;box-shadow:var(--shadow);aspect-ratio:4/5;object-fit:cover;width:100%;
+  }
+  .badge{
+    position:absolute;bottom:-22px;left:-22px;background:var(--white);
+    border-radius:18px;padding:16px 20px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:12px;max-width:250px;
+  }
+  .badge .emoji{font-size:1.7rem}
+  .badge b{display:block;font-size:.95rem}
+  .badge small{color:var(--muted);font-size:.8rem;line-height:1.3;display:block}
+
+  /* ---------- MARCAS / CINTA ---------- */
+  .tape{background:var(--berry);color:#FFF3E6;padding:16px 0;overflow:hidden}
+  .tape-track{display:flex;gap:46px;white-space:nowrap;font-family:'Fraunces',serif;
+    font-size:1rem;letter-spacing:.06em;animation:slide 26s linear infinite;width:max-content}
+  @keyframes slide{to{transform:translateX(-50%)}}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:60px;align-items:center}
+  .about-media{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .about-media img{border-radius:var(--radius);object-fit:cover;width:100%;height:100%;box-shadow:var(--shadow)}
+  .about-media .tall{grid-row:span 2;aspect-ratio:3/4.6}
+  .about-media .short{aspect-ratio:4/3}
+  h2.section-title{font-size:clamp(1.9rem,3.6vw,2.8rem);margin:14px 0 18px}
+  .about-text p{color:var(--muted);margin-bottom:16px}
+  .checks{list-style:none;margin-top:26px;display:grid;gap:12px}
+  .checks li{display:flex;gap:12px;align-items:flex-start;font-weight:600;font-size:.97rem}
+  .checks li::before{content:"✓";color:var(--caramel);font-weight:800;font-size:1.05rem}
+
+  /* ---------- PRODUCTOS ---------- */
+  .products{background:linear-gradient(180deg,#FFF9F2,#FDF1E7)}
+  .head-center{text-align:center;max-width:620px;margin:0 auto 54px}
+  .head-center p{color:var(--muted);margin-top:10px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+  .card{
+    background:var(--white);border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 14px 34px -22px rgba(59,36,28,.4);
+    transition:transform .3s ease, box-shadow .3s ease;display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 26px 46px -22px rgba(59,36,28,.45)}
+  .card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+  .card-body{padding:24px 24px 28px;display:flex;flex-direction:column;flex:1}
+  .card-body h3{font-size:1.25rem;margin-bottom:8px}
+  .card-body p{color:var(--muted);font-size:.93rem;flex:1}
+  .price{margin-top:16px;display:flex;align-items:center;justify-content:space-between}
+  .price b{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--berry)}
+  .price small{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+
+  /* ---------- PROCESO ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;counter-reset:s}
+  .step{background:var(--white);border-radius:var(--radius);padding:34px 28px;box-shadow:0 14px 34px -26px rgba(59,36,28,.45);position:relative}
+  .step::before{
+    counter-increment:s;content:counter(s,decimal-leading-zero);
+    font-family:'Fraunces',serif;font-size:2.4rem;color:var(--blush);display:block;margin-bottom:10px;font-weight:700;
+  }
+  .step h3{font-size:1.15rem;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:.93rem}
+
+  /* ---------- TESTIMONIOS ---------- */
+  .testimonials{background:var(--choco);color:#F6E7DD}
+  .testimonials .section-title{color:#fff}
+  .testimonials .eyebrow{color:var(--caramel)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:52px}
+  .quote{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:30px 28px}
+  .quote p{font-size:.98rem;color:#F1DDD1;font-style:italic}
+  .who{display:flex;align-items:center;gap:12px;margin-top:20px}
+  .who .avatar{width:42px;height:42px;border-radius:50%;background:var(--caramel);display:grid;place-items:center;font-weight:800;color:#4A2416}
+  .who b{display:block;font-size:.92rem;color:#fff}
+  .who small{color:#C9AA99;font-size:.8rem}
+  .stars{color:var(--caramel);letter-spacing:3px;font-size:.9rem;margin-bottom:12px}
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    background:linear-gradient(135deg,var(--berry),#B0436A);
+    border-radius:28px;padding:64px 56px;text-align:center;color:#FFF4EC;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .cta-band h2{font-size:clamp(1.8rem,3.4vw,2.6rem);color:#fff;margin-bottom:14px}
+  .cta-band p{max-width:52ch;margin:0 auto 30px;color:#FBE3DC}
+  .cta-band .btn{background:#fff;color:var(--berry);box-shadow:0 14px 30px -14px rgba(0,0,0,.5)}
+  .cta-band .btn:hover{background:var(--blush);color:var(--berry-dark)}
+
+  /* ---------- CONTACTO / FOOTER ---------- */
+  footer{background:#2C1A14;color:#D9C0B4;padding:72px 0 26px;font-size:.92rem}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px}
+  footer h4{font-family:'Fraunces',serif;color:#fff;font-size:1.05rem;margin-bottom:16px}
+  footer ul{list-style:none;display:grid;gap:10px}
+  footer a:hover{color:var(--caramel)}
+  .foot-brand p{margin:14px 0 18px;color:#B99C8E;max-width:34ch}
+  .socials{display:flex;gap:12px}
+  .socials a{
+    width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);
+    display:grid;place-items:center;transition:background .25s,transform .25s;
+  }
+  .socials a:hover{background:var(--berry);transform:translateY(-3px)}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.1);margin-top:52px;padding-top:22px;
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:#9C8377;font-size:.83rem;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .hero-grid,.about-grid{grid-template-columns:1fr;gap:44px}
+    .hero-media{order:-1;max-width:460px}
+    .cards,.steps,.quotes{grid-template-columns:1fr 1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .cta-band{padding:48px 30px}
+  }
+  @media (max-width:680px){
+    section{padding:70px 0}
+    .nav ul{display:none}
+    .burger{display:block}
+    .nav ul.open{
+      display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+      background:var(--cream);padding:22px 6%;gap:18px;border-bottom:1px solid rgba(201,138,75,.3);
+    }
+    .cards,.steps,.quotes,.foot-grid{grid-template-columns:1fr}
+    .hero-stats{gap:26px}
+    .badge{left:0;bottom:-16px;padding:12px 16px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="brand"><span>🧁</span> CandyKane</a>
+    <ul id="menu">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#proceso">Cómo pedir</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn">Pedir por encargo</a>
+    <button class="burger" id="burger" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Pastelería artesanal · Desde 2014</p>
+      <h1>Dulces hechos a mano, <em>directo del horno</em> a tu mesa.</h1>
+      <p class="lead">
+        En CandyKane horneamos cada día con mantequilla real, chocolate belga y fruta de temporada.
+        Tortas, cupcakes, macarons y postres por encargo para cumpleaños, bodas y esos antojos sin fecha.
+      </p>
+      <div class="hero-actions">
+        <a href="#productos" class="btn">Ver el menú</a>
+        <a href="#proceso" class="btn btn-ghost">Cómo pedir</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>1.200+</strong><span>Tortas entregadas</span></div>
+        <div><strong>4.9/5</strong><span>Valoración clientes</span></div>
+        <div><strong>18</strong><span>Sabores en carta</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img class="main" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=elegant%20artisan%20bakery%20display%20with%20layered%20cakes%20cupcakes%20and%20macarons%20warm%20natural%20light%20pastel%20pink%20and%20cream%20tones%20professional%20food%20photography&image_size=portrait_4_5" alt="Vitrina de pastelería artesanal con tortas y macarons" />
+      <div class="badge">
+        <div class="emoji">🚚</div>
+        <div><b>Delivery hoy mismo</b><small>Pedidos antes de las 11:00</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CINTA -->
+<div class="tape">
+  <div class="tape-track">
+    <span>✦ Mantequilla real</span><span>✦ Sin conservantes</span><span>✦ Chocolate belga</span>
+    <span>✦ Fruta de temporada</span><span>✦ Horneado cada mañana</span><span>✦ Hecho por encargo</span>
+    <span>✦ Mantequilla real</span><span>✦ Sin conservantes</span><span>✦ Chocolate belga</span>
+    <span>✦ Fruta de temporada</span><span>✦ Horneado cada mañana</span><span>✦ Hecho por encargo</span>
+  </div>
+</div>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <div class="wrap about-grid">
+    <div class="about-media">
+      <img class="tall" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=pastry%20chef%20woman%20hands%20piping%20cream%20on%20a%20cake%20in%20a%20cozy%20artisan%20bakery%20kitchen%20warm%20lifestyle%20photography&image_size=portrait_4_3" alt="Pastelera decorando una torta" />
+      <img class="short" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=fresh%20baking%20ingredients%20butter%20flour%20eggs%20chocolate%20and%20vanilla%20on%20rustic%20wooden%20table%20soft%20light&image_size=landscape_4_3" alt="Ingredientes frescos de repostería" />
+      <img class="short" src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=cozy%20pastel%20pink%20bakery%20interior%20with%20cake%20display%20counter%20and%20hanging%20lights%20soft%20daylight&image_size=landscape_4_3" alt="Interior de la pastelería" />
+    </div>
+    <div class="about-text">
+      <p class="eyebrow">Nuestra historia</p>
+      <h2 class="section-title">Una receta de familia, horneada con calma</h2>
+      <p>
+        CandyKane nació en una cocina pequeña con un cuaderno de recetas heredado y la idea de que
+        un buen postre no necesita atajos. Hoy seguimos igual: lotes pequeños, ingredientes reales
+        y decoración hecha a mano, sin prisa y sin conservantes.
+      </p>
+      <p>
+        Cada pedido se prepara el mismo día de la entrega para que llegue fresco, húmedo y con ese
+        aroma que solo tiene lo recién horneado.
+      </p>
+      <ul class="checks">
+        <li>Ingredientes naturales, sin conservantes añadidos</li>
+        <li>Opciones sin gluten y sin lactosa por encargo</li>
+        <li>Diseño personalizado para bodas, cumpleaños y eventos</li>
+        <li>Empaque cuidado y delivery en frío controlado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="products" id="productos">
+  <div class="wrap">
+    <div class="head-center">
+      <p class="eyebrow">Nuestra carta</p>
+      <h2 class="section-title">Los favoritos de la casa</h2>
+      <p>Todo se hornea por encargo. Elige tu favorito y personalízalo en sabor, tamaño y decoración.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=three%20layer%20chocolate%20birthday%20cake%20with%20cream%20frosting%20and%20berries%20on%20top%20white%20background%20food%20photography&image_size=landscape_4_3" alt="Torta de chocolate de tres capas">
+        <div class="card-body">
+          <h3>Tortas por encargo</h3>
+          <p>De 3 a 5 capas, rellenos cremosos y decoración personalizada para tu celebración.</p>
+          <div class="price"><b>$45.000</b><small>Desde</small></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=colorful%20frosted%20cupcakes%20row%20with%20swirl%20buttercream%20and%20sprinkles%20food%20photography%20soft%20light&image_size=landscape_4_3" alt="Cupcakes decorados">
+        <div class="card-body">
+          <h3>Cupcakes</h3>
+          <p>Docena surtida con buttercream sedoso. Perfectos para mesas dulces y regalos.</p>
+          <div class="price"><b>$32.000</b><small>Docena</small></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=french%20macarons%20pastel%20colors%20arranged%20in%20a%20gift%20box%20food%20photography%20soft%20light&image_size=landscape_4_3" alt="Macarons franceses">
+        <div class="card-body">
+          <h3>Macarons franceses</h3>
+          <p>Crujientes por fuera, suaves por dentro. Sabores rotativos cada semana.</p>
+          <div class="price"><b>$3.500</b><small>Unidad</small></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=artisan%20sourdough%20bread%20loaves%20with%20crackling%20crust%20on%20wooden%20board%20rustic%20food%20photography&image_size=landscape_4_3" alt="Pan artesanal">
+        <div class="card-body">
+          <h3>Pan artesanal</h3>
+          <p>Masa madre fermentada 24 horas. Corteza crujiente, miga aireada.</p>
+          <div class="price"><b>$14.000</b><small>Hogaza</small></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=glossy%20fruit%20tart%20with%20strawberries%20kiwi%20and%20berries%20on%20almond%20crust%20food%20photography&image_size=landscape_4_3" alt="Tarta de frutas">
+        <div class="card-body">
+          <h3>Tartas de fruta</h3>
+          <p>Base de almendra, crema pastelera y fruta fresca de temporada glaseada.</p>
+          <div class="price"><b>$38.000</b><small>Mediana</small></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=assorted%20butter%20cookies%20and%20brownies%20on%20a%20plate%20with%20coffee%20food%20photography%20warm%20tones&image_size=landscape_4_3" alt="Galletas y brownies">
+        <div class="card-body">
+          <h3>Galletas &amp; brownies</h3>
+          <p>Caja mixta con brownie fudge, galletas de avena y chips de chocolate.</p>
+          <div class="price"><b>$26.000</b><small>Caja x8</small></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="wrap">
+    <div class="head-center">
+      <p class="eyebrow">Pedidos fáciles</p>
+      <h2 class="section-title">Cómo pedir tu postre</h2>
+      <p>Tres pasos y listo. Coordinamos todo por WhatsApp para que no te compliques.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Elige y personaliza</h3>
+        <p>Revisa la carta y cuéntanos sabor, tamaño, colores y la fecha en que lo necesitas.</p>
+      </div>
+      <div class="step">
+        <h3>Confirmamos y horneamos</h3>
+        <p>Te enviamos la cotización, el anticipo del 50% y horneamos el mismo día de la entrega.</p>
+      </div>
+      <div class="step">
+        <h3>Recibe tu pedido</h3>
+        <p>Retiro en tienda o delivery refrigerado en un rango de 2 horas que elegimos juntos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="head-center">
+      <p class="eyebrow">Lo que dicen</p>
+      <h2 class="section-title">Clientes que vuelven por más</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"La torta de la boda fue el centro de atención. Sabor increíble y llegó perfecta pese al calor."</p>
+        <div class="who"><div class="avatar">M</div><div><b>Mariana R.</b><small>Boda · 120 invitados</small></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Pedí cupcakes personalizados para la oficina y desaparecieron en 10 minutos. Volveré a pedir."</p>
+        <div class="who"><div class="avatar">D</div><div><b>Diego P.</b><small>Cumpleaños corporativo</small></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Los macarons son de otro nivel. Se nota la calidad de los ingredientes en cada bocado."</p>
+        <div class="who"><div class="avatar">L</div><div><b>Laura G.</b><small>Clienta frecuente</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>¿Se te antojó algo dulce?</h2>
+      <p>Cuéntanos qué celebras y te armamos una propuesta a medida. Respondemos en menos de 24 horas.</p>
+      <a href="#contacto" class="btn">Hacer mi pedido</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACTO -->
+<footer id="contacto">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#inicio" class="brand" style="color:#fff"><span>🧁</span> CandyKane</a>
+        <p>Pastelería artesanal horneada por encargo. Ingredientes reales, lotes pequeños, mucho cariño.</p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="TikTok">♪</a>
+        </div>
+      </div>
+      <div>
+        <h4>Tienda</h4>
+        <ul>
+          <li><a href="#productos">Tortas</a></li>
+          <li><a href="#productos">Cupcakes</a></li>
+          <li><a href="#productos">Macarons</a></li>
+          <li><a href="#productos">Pan artesanal</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Atención</h4>
+        <ul>
+          <li>Lun a Vie · 8:00 – 19:00</li>
+          <li>Sábado · 9:00 – 17:00</li>
+          <li>Domingo · cerrado</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="tel:+573001234567">+57 300 123 4567</a></li>
+          <li><a href="mailto:hola@candykane.co">hola@candykane.co</a></li>
+          <li>Calle 45 #12-30, Bogotá</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> CandyKane Pastelería Artesanal. Todos los derechos reservados.</span>
+      <span>Hecho con mantequilla, harina y cariño.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){ menu.classList.toggle('open'); });
+  menu.addEventListener('click', function(e){ if (e.target.tagName === 'A') menu.classList.remove('open'); });
+</script>
+</body>
+</html>
